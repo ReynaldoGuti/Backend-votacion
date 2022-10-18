@@ -15,7 +15,7 @@ class ControladorEstudiante():
 
     def create(self, infoEstudiante):
         print("Crear nuevo estudiante")
-        elEstudiante= Estudiante(infoEstudiante)
+        elEstudiante = Estudiante(infoEstudiante)
         return elEstudiante.__dict__
 
     def show(self, id):
