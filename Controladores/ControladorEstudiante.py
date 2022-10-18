@@ -6,13 +6,12 @@ class ControladorEstudiante():
 
     def index(self):
         print("Listar todos los estudiantes")
-        unEstudiante={
-            "_id":"abc123",
-            "cedula":"123",
-            "nombre":"Juyan",
-            "apellido":"Perez"
-        }
-        return [unEstudiante]
+        unEstudiante=[
+            {"id": 1, "nombre": "juan", "apellido": "perez", "cedula": "123354212"},
+            {"id": 2, "nombre": "reynaldo", "apellido": "gutierrez", "cedula": "12354520"},
+            {"id": 3, "nombre": "luis", "apellido": "robado", "cedula": "4865636585"},
+        ]
+        return unEstudiante
 
     def create(self, infoEstudiante):
         print("Crear nuevo estudiante")
@@ -27,7 +26,7 @@ class ControladorEstudiante():
             "nombre": "Juyan",
             "apellido": "Perez"
         }
-        return elEstudiante
+        return {"Hola estudiante con nombre":"Juyan"}
 
     def update(self,id,infoEstudiante):
         print("Actualizando estudiante con id ", id)
