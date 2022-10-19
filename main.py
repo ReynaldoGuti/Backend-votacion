@@ -1,40 +1,50 @@
-from flask import Flask
-from flask import jsonify
-from flask import request
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 from json import load
 from waitress import serve
+import pymongo
+import certifi
+
+ca = certifi.where()
+
+client = pymongo.MongoClient("mongodb+srv://reynaldog:reynaldog@cluster0.qfgmf.mongodb.net/bd-registro-ciudados?retryWrites=true&w=majority",tlsCAFile=ca)
+db = client.test
+print(db)
+
+baseDatos = client["bd-registro-ciudadanos"]
+#print(baseDatos.list_collection_names())
 
 app = Flask(__name__)
 cors = CORS(app)
-from Controladores.ControladorEstudiante import ControladorEstudiante
-miControladorEstudiante= ControladorEstudiante()
+from Controladores.ControladorCiudadano import ControladorCiudadano
+miControladorCiudadano= ControladorCiudadano()
 
-@app.route("/estudiantes", methods=['GET'])
-def getEstudiantes():
-    json= miControladorEstudiante.index()
+@app.route("/ciudadano", methods=['GET'])
+def getCiudadanos():
+    json= miControladorCiudadano.index()
     return jsonify(json)
 
-@app.route("/estudiantes", methods=['POST'])
-def crearEstudiante():
+
+@app.route("/ciudadano", methods=['POST'])
+def crearCiudadano():
     data= request.get_json()
-    json= miControladorEstudiante.create(data)
+    json= miControladorCiudadano.create(data)
+    return jsonify({"Usuario creado":json})
+
+@app.route("/ciudadano/<string:id>", methods=['GET'])
+def getCiudadano(id):
+    json= miControladorCiudadano.show(id)
     return jsonify(json)
 
-@app.route("/estudiantes/<string:id>", methods=['GET'])
-def getEstudiante(id):
-    json= miControladorEstudiante.show(id)
-    return jsonify(json)
-
-@app.route("/estudiantes/<string:id>", methods=['PUT'])
-def modificarEstudiante(id):
+@app.route("/ciudadano/<string:id>", methods=['PUT'])
+def actualizarCiudadano(id):
     data= request.get_json()
-    json= miControladorEstudiante.update(id,data)
+    json= miControladorCiudadano.update(id,data)
     return jsonify(json)
 
-@app.route("/estudiantes/<string:id>", methods=['DELETE'])
-def eliminarEstudiante(id):
-    json= miControladorEstudiante.delete(id)
+@app.route("/ciudadano/<string:id>", methods=['DELETE'])
+def eliminarCiudadano(id):
+    json= miControladorCiudadano.delete(id)
     return jsonify(json)
 
 @app.route("/",methods=['GET'])

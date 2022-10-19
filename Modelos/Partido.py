@@ -1,4 +1,4 @@
 from Modelos.AbstractModelo import AbstractModelo
 
-class Inscripcion(AbstractModelo):
+class Partido(AbstractModelo):
     pass
