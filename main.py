@@ -7,12 +7,12 @@ import certifi
 
 ca = certifi.where()
 
-client = pymongo.MongoClient("mongodb+srv://reynaldog:reynaldog@cluster0.qfgmf.mongodb.net/bd-registro-ciudados?retryWrites=true&w=majority",tlsCAFile=ca)
+client = pymongo.MongoClient("mongodb+srv://reynaldog:reynaldog@cluster0.q11cs3o.mongodb.net/?retryWrites=true&w=majority",tlsCAFile=ca)
 db = client.test
 print(db)
 
-baseDatos = client["bd-registro-ciudadanos"]
-#print(baseDatos.list_collection_names())
+baseDatos = client["db-registro-ciudadanos"]
+print(baseDatos.list_collection_names())
 
 app = Flask(__name__)
 cors = CORS(app)
