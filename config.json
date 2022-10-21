@@ -1,4 +1,7 @@
 {
   "url-backend": "127.0.0.1",
-  "port": 9999
+  "port": 9999,
+
+  "data-db-conection": "mongodb+srv://reynaldog:reynaldog@cluster0.q11cs3o.mongodb.net/?retryWrites=true&w=majority",
+  "name-db": "db-registro-ciudadanos"
 }

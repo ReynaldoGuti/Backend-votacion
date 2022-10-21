@@ -16,6 +16,7 @@ print(baseDatos.list_collection_names())
 
 app = Flask(__name__)
 cors = CORS(app)
+
 from Controladores.ControladorCiudadano import ControladorCiudadano
 miControladorCiudadano= ControladorCiudadano()
 
