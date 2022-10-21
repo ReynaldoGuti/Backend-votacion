@@ -47,7 +47,6 @@ def actualizarCiudadano(id):
 def eliminarCiudadano(id):
     json= miControladorCiudadano.delete(id)
     return jsonify(json)
-
 @app.route("/",methods=['GET'])
 def test():
     json = {}

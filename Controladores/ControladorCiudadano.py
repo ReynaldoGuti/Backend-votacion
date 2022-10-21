@@ -3,7 +3,6 @@ from Repositorios.RepositorioCiudadano import RepositorioCiudadano
 class ControladorCiudadano():
     def __init__(self):
         self.repositorioCiudadano = RepositorioCiudadano()
-
     def index(self):
         return self.repositorioCiudadano.findAll()
     def create(self, dataCiudadano):
