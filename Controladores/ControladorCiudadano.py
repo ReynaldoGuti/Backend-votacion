@@ -1,39 +1,22 @@
 from Modelos.Ciudadano import Ciudadano
-
+from Repositorios.RepositorioCiudadano import RepositorioCiudadano
 class ControladorCiudadano():
     def __init__(self):
-        print("Creando ControladorCiudadano")
+        self.repositorioCiudadano = RepositorioCiudadano()
 
     def index(self):
-        print("Listando todos los ciudadanos")
-        ciudadanos=[
-            {"id": 1, "nombre": "juan", "apellido": "perez", "cedula": "123354212"},
-            {"id": 2, "nombre": "reynaldo", "apellido": "gutierrez", "cedula": "12354520"},
-            {"id": 3, "nombre": "luis", "apellido": "robado", "cedula": "4865636585"},
-        ]
-        return ciudadanos
-
+        return self.repositorioCiudadano.findAll()
     def create(self, dataCiudadano):
-        print("Crear nuevo usuario Ciudadano")
-        ciudadano = Ciudadano(dataCiudadano)
-        return ciudadano.__dict__
-
-
+        nuevoCiudadano= Ciudadano(dataCiudadano)
+        return self.repositorioCiudadano.save(nuevoCiudadano)
     def show(self, id):
-        print("Mostrando un ciudadano con id ", id)
-        ciudadano = {
-            "_id": id,
-            "cedula": "123",
-            "nombre": "Juyan",
-            "apellido": "Perez"
-        }
-        return ciudadano
-
-    def update(self,id,dataCiudadano):
-        print("Actualizando usuario Ciudadano con id ", id)
-        ciudadano = Ciudadano(dataCiudadano)
+        ciudadano= Ciudadano(self.repositorioCiudadano.findById(id))
         return ciudadano.__dict__
-
+    def update(self,id,dataCiudadano):
+        ciudadanoActualizado = Ciudadano(self.repositorioCiudadano.findById(id))
+        ciudadanoActualizado.cedula = dataCiudadano["cedula"]
+        ciudadanoActualizado.nombre = dataCiudadano["nombre"]
+        ciudadanoActualizado.apellido = dataCiudadano["apellido"]
+        return self.repositorioCiudadano.save(ciudadanoActualizado)
     def delete(self, id):
-        print("Eliminando usuario Ciudadano con id", id)
-        return {"Cuenta Borrada":1}
+        return self.repositorioCiudadano.delete(id)
