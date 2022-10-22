@@ -19,7 +19,9 @@ cors = CORS(app)
 
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorMesa import ControladorMesa
+from Controladores.ControladorResultados import ControladorResultados
 
+miControladorResultados= ControladorResultados()
 miControladorMesa = ControladorMesa()
 miControladorCandidato= ControladorCandidato()
 
@@ -73,10 +75,34 @@ def actualizarMesa(id):
 def eliminarMesa(id):
     json= miControladorMesa.delete(id)
     return jsonify(json)
-@app.route("/mesa/<string:id>/resultado/<string:id_resultado>",methods=['PUT'])
-def asignarResultadoaMesa(id,id_departamento):
-    json= miControladorMesa.asignarResultado(id,id_departamento)
+@app.route("/mesa/<string:id>/resultados/<string:id_resultados>",methods=['PUT'])
+def asignarResultadoaMesa(id,id_resultados):
+    json= miControladorMesa.asignarResultado(id,id_resultados)
     return jsonify(json)
+
+## Rutas Resultados
+@app.route("/resultados", methods=['GET'])
+def ListarResultados():
+    json= miControladorResultados.index()
+    return jsonify(json)
+@app.route("/resultados", methods=['POST'])
+def crearResultados():
+    data= request.get_json()
+    json= miControladorResultados.create(data)
+    return jsonify({"Nuevos Resultados Creados":json})
+@app.route("/resultados/<string:id>", methods=['GET'])
+def ListarResultado(id):
+    json= miControladorResultados.show(id)
+    return jsonify(json)
+@app.route("/resultados/<string:id>", methods=['PUT'])
+def actualizarResultado(id):
+    data= request.get_json()
+    json= miControladorResultados.update(id,data)
+    return jsonify({"Resultados Actualizados":json})
+@app.route("/resultados/<string:id>", methods=['DELETE'])
+def eliminarResultado(id):
+    json= miControladorResultados.delete(id)
+    return jsonify({"Resultados Eliminados":json})
 @app.route("/",methods=['GET'])
 def test():
     json = {}
