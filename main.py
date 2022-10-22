@@ -17,42 +17,39 @@ print(baseDatos.list_collection_names())
 app = Flask(__name__)
 cors = CORS(app)
 
-from Controladores.ControladorCiudadano import ControladorCiudadano
-miControladorCiudadano= ControladorCiudadano()
+from Controladores.ControladorCandidato import ControladorCandidato
+miControladorCandidato= ControladorCandidato()
 
-@app.route("/ciudadano", methods=['GET'])
-def getCiudadanos():
-    json= miControladorCiudadano.index()
+@app.route("/candidato", methods=['GET'])
+def ListarCandidatos():
+    json= miControladorCandidato.index()
     return jsonify(json)
-
-
-@app.route("/ciudadano", methods=['POST'])
-def crearCiudadano():
+@app.route("/candidato", methods=['POST'])
+def crearCandidato():
     data= request.get_json()
-    json= miControladorCiudadano.create(data)
-    return jsonify({"Usuario creado":json})
+    json= miControladorCandidato.create(data)
+    return jsonify({"Nuevo candidato creado":json})
 
-@app.route("/ciudadano/<string:id>", methods=['GET'])
-def getCiudadano(id):
-    json= miControladorCiudadano.show(id)
+@app.route("/candidato/<string:id>", methods=['GET'])
+def ListarCandidato(id):
+    json= miControladorCandidato.show(id)
     return jsonify(json)
 
-@app.route("/ciudadano/<string:id>", methods=['PUT'])
-def actualizarCiudadano(id):
+@app.route("/candidato/<string:id>", methods=['PUT'])
+def actualizarCandidato(id):
     data= request.get_json()
-    json= miControladorCiudadano.update(id,data)
+    json= miControladorCandidato.update(id,data)
     return jsonify(json)
 
-@app.route("/ciudadano/<string:id>", methods=['DELETE'])
-def eliminarCiudadano(id):
-    json= miControladorCiudadano.delete(id)
+@app.route("/candidato/<string:id>", methods=['DELETE'])
+def eliminarCandidato(id):
+    json= miControladorCandidato.delete(id)
     return jsonify(json)
 @app.route("/",methods=['GET'])
 def test():
     json = {}
     json["Message"] = "Server running ..."
     return jsonify(json)
-
 def loadFileConfig():
     with open('config.json') as f:
         data = load(f)
