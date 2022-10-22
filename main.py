@@ -18,8 +18,12 @@ app = Flask(__name__)
 cors = CORS(app)
 
 from Controladores.ControladorCandidato import ControladorCandidato
+from Controladores.ControladorMesa import ControladorMesa
+
+miControladorMesa = ControladorMesa()
 miControladorCandidato= ControladorCandidato()
 
+##RutasCandidato
 @app.route("/candidato", methods=['GET'])
 def ListarCandidatos():
     json= miControladorCandidato.index()
@@ -34,16 +38,44 @@ def crearCandidato():
 def ListarCandidato(id):
     json= miControladorCandidato.show(id)
     return jsonify(json)
-
 @app.route("/candidato/<string:id>", methods=['PUT'])
 def actualizarCandidato(id):
     data= request.get_json()
     json= miControladorCandidato.update(id,data)
     return jsonify(json)
-
 @app.route("/candidato/<string:id>", methods=['DELETE'])
 def eliminarCandidato(id):
     json= miControladorCandidato.delete(id)
+    return jsonify(json)
+
+## Rutas Mesas
+
+@app.route("/mesa", methods=['GET'])
+def ListarMesas():
+    json= miControladorMesa.index()
+    return jsonify(json)
+@app.route("/mesa", methods=['POST'])
+def crearMesa():
+    data= request.get_json()
+    json= miControladorMesa.create(data)
+    return jsonify({"Nueva mesa creada":json})
+
+@app.route("/mesa/<string:id>", methods=['GET'])
+def ListarMesa(id):
+    json= miControladorMesa.show(id)
+    return jsonify(json)
+@app.route("/mesa/<string:id>", methods=['PUT'])
+def actualizarMesa(id):
+    data= request.get_json()
+    json= miControladorMesa.update(id,data)
+    return jsonify({"Mesa Actualizada":json})
+@app.route("/mesa/<string:id>", methods=['DELETE'])
+def eliminarMesa(id):
+    json= miControladorMesa.delete(id)
+    return jsonify(json)
+@app.route("/mesa/<string:id>/resultado/<string:id_resultado>",methods=['PUT'])
+def asignarResultadoaMesa(id,id_departamento):
+    json= miControladorMesa.asignarResultado(id,id_departamento)
     return jsonify(json)
 @app.route("/",methods=['GET'])
 def test():

@@ -1,4 +1,5 @@
 /.idea/
 /env/
 /shelf/
+/__pycache__/
 /workspace.xml
