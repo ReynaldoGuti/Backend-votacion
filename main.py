@@ -20,7 +20,9 @@ cors = CORS(app)
 from Controladores.ControladorCandidato import ControladorCandidato
 from Controladores.ControladorMesa import ControladorMesa
 from Controladores.ControladorResultados import ControladorResultados
+from Controladores.ControladorPartido import ControladorPartido
 
+miControladorPartido = ControladorPartido()
 miControladorResultados= ControladorResultados()
 miControladorMesa = ControladorMesa()
 miControladorCandidato= ControladorCandidato()
@@ -103,6 +105,32 @@ def actualizarResultado(id):
 def eliminarResultado(id):
     json= miControladorResultados.delete(id)
     return jsonify({"Resultados Eliminados":json})
+
+## Rutas Partido
+@app.route("/partido", methods=['GET'])
+def ListarPartidos():
+    json= miControladorPartido.index()
+    return jsonify(json)
+@app.route("/partido", methods=['POST'])
+def crearPartido():
+    data= request.get_json()
+    json= miControladorPartido.create(data)
+    return jsonify({"Nuevo candidato creado":json})
+
+@app.route("/partido/<string:id>", methods=['GET'])
+def ListarPartido(id):
+    json= miControladorPartido.show(id)
+    return jsonify(json)
+@app.route("/partido/<string:id>", methods=['PUT'])
+def actualizarPartido(id):
+    data= request.get_json()
+    json= miControladorPartido.update(id,data)
+    return jsonify(json)
+@app.route("/partido/<string:id>", methods=['DELETE'])
+def eliminarPartido(id):
+    json= miControladorPartido.delete(id)
+    return jsonify({"Partido Borrado exitosamente":json})
+
 @app.route("/",methods=['GET'])
 def test():
     json = {}
