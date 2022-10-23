@@ -1,6 +1,5 @@
 from Modelos.Partido import Partido
 from Repositorios.RepositorioPartido import RepositorioPartido
-
 class ControladorPartido():
     def __init__(self):
         self.repositorioPartido = RepositorioPartido()
